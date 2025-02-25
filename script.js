@@ -50,16 +50,16 @@ window.onload = function () {
         places.forEach(place => {
             if (
                 (category === '' || category === place.category) && 
-                (subCategory === '' || subCategory === place.subCategory) && 
+                (subCategory === '' || subCategory in place.subCategory) && 
                 (pressupost === '' || pressupost === place.pressupost)
             ) {
                 let markerColor;
                 switch (place.category) {
-                    case 'menjar': markerColor = 'green'; break;
-                    case 'supermercat': markerColor = 'blue'; break;
-                    case 'botigues': markerColor = 'yellow'; break;
-                    case 'turisme': markerColor = 'red'; break;
-                    case 'oci': markerColor = 'purple'; break;
+                    case 'menjar': markerColor = '#84b4b1'; break;
+                    case 'supermercat': markerColor = '#969ac0'; break;
+                    case 'botigues': markerColor = '#b3b68b'; break;
+                    case 'turisme': markerColor = '#bd9090'; break;
+                    case 'oci': markerColor = '#b48db2'; break;
                 }
     
                 var marker = L.circleMarker([place.lat, place.lon], {
@@ -155,11 +155,19 @@ window.onload = function () {
 
 const places = [
     { 
-        name: 'Restaurant 1', 
-        description: 'Restaurant 1 description',
-        lat: 41.6080, lon: 2.2873, 
+        name: 'El Mirallet', 
+        description: 'Cuina tradicional de Granollers de fa més de 40 anys. Aprox. 15€/persona',
+        lat: 41.60789052615172, lon: 2.2867331049050317,
         category: 'menjar',
-        subCategory: 'esmorzar',
+        subCategory: ['dinar', 'sopar'],
+        pressupost: 'baix'
+    },
+    { 
+        name: 'Tolino Gastro Bar', 
+        description: 'Hamburgueses i entrepans. Aprox. 15€/persona',
+        lat: 41.60758945709514, lon: 2.286202566114203,
+        category: 'menjar',
+        subCategory: ['esmorzar', 'dinar', 'sopar'],
         pressupost: 'baix'
     },
 
