@@ -178,5 +178,122 @@ const places = [
         subCategory: ['esmorzar', 'dinar', 'berenar', 'sopar'],
         pressupost: 'alt'
     },
+    { 
+        name: 'Naguabo', 
+        description: 'Pizza, pasta, cuina catalana. Una mica de tot. Aprox. 20€/persona',
+        lat: 41.60993699400828,  lon: 2.2893485441726344,
+        category: 'menjar',
+        subCategory: ['esmorzar', 'dinar', 'berenar', 'sopar'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'El 19', 
+        description: 'Tapes. Aprox. 15€/persona',
+        lat: 41.609725694975026, lon: 2.2897221124085587,
+        category: 'menjar',
+        subCategory: ['dinar', 'sopar'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'El 19', 
+        description: 'Tapes. Aprox. 15€/persona',
+        lat: 41.609725694975026, lon: 2.2897221124085587,
+        category: 'menjar',
+        subCategory: ['dinar', 'sopar'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'Viena', 
+        description: 'Entrepans, alguna pasta i pizza. Aprox. 15€/persona',
+        lat: 41.6117439367976, lon: 2.303855013459681,
+        category: 'menjar',
+        subCategory: ['esmorzar', 'dinar', 'berenar', 'sopar', 'prendrealgo'],
+        pressupost: 'baix'
+    },
+    { 
+        name: 'Viena', 
+        description: 'Entrepans, alguna pasta i pizza. Aprox. 15€/persona',
+        lat: 41.60912648555031, lon: 2.2897633614167443,
+        category: 'menjar',
+        subCategory: ['esmorzar', 'dinar', 'berenar', 'sopar', 'prendrealgo'],
+        pressupost: 'baix'
+    },
+
+
+
+
+
+    { 
+        name: 'ESCLAT', 
+        description: 'Supermercat català amb productes de proximitat.',
+        lat: 41.597962353349565,  lon: 2.2832541033730624,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'baix'
+    },
+    { 
+        name: 'ESCLAT', 
+        description: 'Supermercat català amb productes de proximitat.',
+        lat: 41.597962353349565,  lon: 2.2832541033730624,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'ESCLAT', 
+        description: 'Supermercat català amb productes de proximitat.',
+        lat: 41.62229814872067,   lon: 2.2829884895564345,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'Bonpreu', 
+        description: 'Supermercat català amb productes de proximitat.',
+        lat: 41.619314554067806, lon: 2.294489801438638,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'Consum', 
+        description: 'Supermercat',
+        lat: 41.61260806347294,  lon: 2.2961205831235088,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'Consum', 
+        description: 'Supermercat',
+        lat: 41.61577734221516,   lon: 2.280638716954849,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'Lidl', 
+        description: 'Supermercat',
+        lat: 41.61036202248674,  lon: 2.3018712390646106,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'mitja'
+    },
+    { 
+        name: 'bonArea', 
+        description: 'Supermercat',
+        lat: 41.61299309121834,   lon: 2.2914857260963517,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'baix'
+    },
+    { 
+        name: 'bonArea', 
+        description: 'Supermercat',
+        lat: 41.61299309121834,   lon: 2.2914857260963517,
+        category: 'supermercat',
+        subCategory: ['compra'],
+        pressupost: 'baix'
+    },
 
 ];
