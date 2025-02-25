@@ -1,0 +1,130 @@
+body {
+    background-color: #f5f5f5;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: 100;
+    color: #333;
+    text-align: center;
+}
+#city-title {
+    color: #444;
+    font-size: 3em;
+    margin: 30px 30px 10px 30px;
+}
+@media (max-width: 768px) {
+    #city-title {
+        font-size: 2.5em;
+    }
+}
+@media (max-width: 480px) {
+    #city-title {
+        font-size: 2em;
+    }
+}
+@media (max-width: 320px) {
+    #city-title {
+        font-size: 1.5em;
+    }
+}
+#map {
+    height: 500px;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    border: 1px solid #bebebe;
+}
+.hidden { display: none; }
+button {
+    background-color: #daebcf;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    color: white;
+    background-color: #6e9157;
+}
+.active {
+    color: white;
+    background-color: #6e9157;
+}
+.menjar {
+    background-color: #cfebe9;
+}
+.menjar:hover {
+    background-color: #84b4b1;
+}
+.menjar.active {
+    background-color: #84b4b1;
+    border: 1px solid #415a58;
+}
+.supermercat {
+    background-color: #cfd2eb;
+}
+.supermercat:hover {
+    background-color: #969ac0;
+}
+.supermercat.active {
+    background-color: #969ac0;
+    border: 1px solid #686a81;
+}
+.botigues {
+    background-color: #e9ebcf;
+}
+.botigues:hover {
+    background-color: #b3b68b;
+}
+.botigues.active {
+    background-color: #b3b68b;
+    border: 1px solid #6f7057;
+}
+.turisme {
+    background-color: #ebcfcf;
+}
+.turisme:hover {
+    background-color: #bd9090;
+}
+.turisme.active {
+    background-color: #bd9090;
+    border: 1px solid #6b5555;
+}
+.oci {
+    background-color: #ebcfe9;
+}
+.oci:hover {
+    background-color: #b48db2;
+}
+.oci.active {
+    background-color: #b48db2;
+    border: 1px solid #695668;
+}
+
+.city-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.city-tab {
+    flex: 1;
+    max-width: 33.33%;
+    background-color: #daebcf;
+    color: black;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+}
+.city-tab:hover {
+    color: white;
+    background-color: #6e9157;
+}
+.city-tab.active {
+    color: white;
+    background-color: #6e9157;
+}
+.categories, #menjar, #supermercat, #botigues, #turisme, #oci, #pressupost {
+    background-color: #daebcf;
+}
