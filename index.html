@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digue'm on</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            background-color: #ddf5f5;
+            font-family: "Courier New", Courier, monospace;
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            color: #444;
+            text-shadow: 2px 2px #ccc;
+        }
+        #map {
+            height: 500px;
+            width: 80%;
+            margin: auto;
+            border: 1px solid #bebebe;
+        }
+        .hidden { display: none; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .active {
+            background-color: #004085;
+        }
+    </style>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div>
+        <button class="city-tab" data-city="Granollers">Granollers</button>
+        <button class="city-tab" data-city="Castelldefels">Castelldefels</button>
+        <button class="city-tab" data-city="Barcelona">Barcelona</button>
+    </div>
+    <h1 id="city-title">Granollers</h1>
+    <h3>Què fer, què veure, què menjar</h3>
+    
+    <div>
+        <button class="category-btn" data-category="menjar">Menjar</button>
+        <button class="category-btn" data-category="supermercat">Supermercat</button>
+        <button class="category-btn" data-category="botigues">Botigues</button>
+        <button class="category-btn" data-category="turisme">Turisme</button>
+        <button class="category-btn" data-category="oci">Oci</button>
+    </div>
+    
+    <div id="menjar" class="hidden">
+        <button class="subcategory-btn">Esmorzar</button>
+        <button class="subcategory-btn">Dinar</button>
+        <button class="subcategory-btn">Berenar</button>
+        <button class="subcategory-btn">Sopar</button>
+        <button class="subcategory-btn">Prendre algo</button>
+    </div>
+    <div id="supermercat" class="hidden">
+        <button class="subcategory-btn">Carn</button>
+        <button class="subcategory-btn">Peix</button>
+        <button class="subcategory-btn">Compra Generica</button>
+    </div>
+    <div id="botigues" class="hidden">
+        <button class="subcategory-btn">Farmàcia</button>
+        <button class="subcategory-btn">Roba</button>
+        <button class="subcategory-btn">Tecnología</button>
+        <button class="subcategory-btn">Altres</button>
+    </div>
+    <div id="oci" class="hidden">
+        <button class="subcategory-btn">Esport</button>
+        <button class="subcategory-btn">Cinema</button>
+        <button class="subcategory-btn">Tranquil</button>
+        <button class="subcategory-btn">Amics</button>
+    </div>
+    
+    <div id="pressupost" class="hidden">
+        <button class="pressupost-btn">Gratis</button>
+        <button class="pressupost-btn">€</button>
+        <button class="pressupost-btn">€€</button>
+        <button class="pressupost-btn">€€€</button>
+    </div>
+    
+    <div id="map"></div>
+    <footer>
+        <p>&copy; 2024 Digue'm on. All rights reserved.</p>
+    </footer>
+
+    <script>
+        var map = L.map('map').setView([41.607950, 2.287336], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        
+        L.marker([41.607950, 2.287336]).addTo(map)
+            .bindPopup('A simple marker.')
+            .openPopup();
+
+        document.querySelectorAll('.city-tab').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('city-title').textContent = button.dataset.city;
+            });
+        });
+
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const categoryDiv = document.getElementById(button.dataset.category);
+                if (button.classList.contains('active')) {
+                    button.classList.remove('active');
+                    categoryDiv.classList.add('hidden');
+                } else {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('#menjar, #supermercat, #botigues, #oci, #pressupost').forEach(div => div.classList.add('hidden'));
+                    button.classList.add('active');
+                    categoryDiv.classList.remove('hidden');
+                }
+            });
+        });
+
+        document.querySelectorAll('.subcategory-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.classList.contains('active')) {
+                    button.classList.remove('active');
+                    document.getElementById('pressupost').classList.add('hidden');
+                } else {
+                    document.querySelectorAll('.subcategory-btn').forEach(btn => btn.classList.remove('active'));
+                    document.getElementById('pressupost').classList.remove('hidden');
+                    button.classList.add('active');
+                }
+            });
+        });
+
+        document.querySelectorAll('.pressupost-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.classList.contains('active')) {
+                    button.classList.remove('active');
+                } else {
+                    document.querySelectorAll('.pressupost-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
