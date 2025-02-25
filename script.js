@@ -50,7 +50,7 @@ window.onload = function () {
         places.forEach(place => {
             if (
                 (category === '' || category === place.category) && 
-                (subCategory === '' || subCategory in place.subCategory) && 
+                (subCategory === '' || place.subCategory.includes(subCategory)) && 
                 (pressupost === '' || pressupost === place.pressupost)
             ) {
                 let markerColor;
@@ -63,15 +63,15 @@ window.onload = function () {
                 }
     
                 var marker = L.circleMarker([place.lat, place.lon], {
-                    radius: 8,
+                    radius: 12,
                     fillColor: markerColor,
-                    color: markerColor,
+                    color: '#555',
                     weight: 1,
                     opacity: 1,
                     fillOpacity: 0.8
                 }).addTo(map);
     
-                marker.bindPopup(`<b>${place.name}</b><br>${place.category}`);
+                marker.bindPopup(`<b>${place.name}</b><br>${place.description}`);
                 markers.push(marker); 
             }
         });
@@ -167,8 +167,16 @@ const places = [
         description: 'Hamburgueses i entrepans. Aprox. 15€/persona',
         lat: 41.60758945709514, lon: 2.286202566114203,
         category: 'menjar',
-        subCategory: ['esmorzar', 'dinar', 'sopar'],
+        subCategory: ['esmorzar', 'dinar', 'berenar', 'sopar'],
         pressupost: 'baix'
+    },
+    { 
+        name: 'Fonda Europa', 
+        description: 'Restaurant tradicional amb més de 300 anys de recorregut. Aprox. 30€/persona',
+        lat: 41.60829041108993, lon: 2.2894273165048857,
+        category: 'menjar',
+        subCategory: ['esmorzar', 'dinar', 'berenar', 'sopar'],
+        pressupost: 'alt'
     },
 
 ];
