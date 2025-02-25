@@ -7,80 +7,182 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
-            background-color: #ddf5f5;
+            background-color: #f5f5f5;
             font-family: "Courier New", Courier, monospace;
+            font-weight: 100;
             color: #333;
             text-align: center;
         }
-        h1 {
+        #city-title {
             color: #444;
-            text-shadow: 2px 2px #ccc;
+            font-size: 3em;
+            margin: 30px 30px 10px 30px;
+        }
+        @media (max-width: 768px) {
+            #city-title {
+                font-size: 2.5em;
+            }
+        }
+        @media (max-width: 480px) {
+            #city-title {
+                font-size: 2em;
+            }
+        }
+        @media (max-width: 320px) {
+            #city-title {
+                font-size: 1.5em;
+            }
         }
         #map {
             height: 500px;
             width: 80%;
             margin: auto;
+            margin-bottom: 40px;
+            margin-top: 40px;
             border: 1px solid #bebebe;
         }
         .hidden { display: none; }
         button {
-            background-color: #007bff;
-            color: white;
+            background-color: #daebcf;
+            color: black;
             border: none;
             padding: 10px 20px;
-            margin: 5px;
+            margin: 5px 2px;
             cursor: pointer;
             border-radius: 5px;
         }
         button:hover {
-            background-color: #0056b3;
+            color: white;
+            background-color: #6e9157;
         }
         .active {
-            background-color: #004085;
+            color: white;
+            background-color: #6e9157;
+        }
+        .menjar {
+            background-color: #cfebe9;
+        }
+        .menjar:hover {
+            background-color: #84b4b1;
+        }
+        .menjar.active {
+            background-color: #84b4b1;
+            border: 1px solid #415a58;
+        }
+        .supermercat {
+            background-color: #cfd2eb;
+        }
+        .supermercat:hover {
+            background-color: #969ac0;
+        }
+        .supermercat.active {
+            background-color: #969ac0;
+            border: 1px solid #686a81;
+        }
+        .botigues {
+            background-color: #e9ebcf;
+        }
+        .botigues:hover {
+            background-color: #b3b68b;
+        }
+        .botigues.active {
+            background-color: #b3b68b;
+            border: 1px solid #6f7057;
+        }
+        .turisme {
+            background-color: #ebcfcf;
+        }
+        .turisme:hover {
+            background-color: #bd9090;
+        }
+        .turisme.active {
+            background-color: #bd9090;
+            border: 1px solid #6b5555;
+        }
+        .oci {
+            background-color: #ebcfe9;
+        }
+        .oci:hover {
+            background-color: #b48db2;
+        }
+        .oci.active {
+            background-color: #b48db2;
+            border: 1px solid #695668;
+        }
+
+        .city-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .city-tab {
+            flex: 1;
+            max-width: 33.33%;
+            background-color: #daebcf;
+            color: black;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+        }
+        .city-tab:hover {
+            color: white;
+            background-color: #6e9157;
+        }
+        .city-tab.active {
+            color: white;
+            background-color: #6e9157;
+        }
+        .categories, #menjar, #supermercat, #botigues, #turisme, #oci, #pressupost {
+            background-color: #daebcf;
         }
     </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <div>
-        <button class="city-tab" data-city="Granollers">Granollers</button>
-        <button class="city-tab" data-city="Castelldefels">Castelldefels</button>
-        <button class="city-tab" data-city="Barcelona">Barcelona</button>
+    <div class="city-tabs">
+        <button class="city-tab active" data-city="GRANOLLERS">GRANOLLERS</button>
+        <button class="city-tab" data-city="CASTELLDEFELS">CASTELLDEFELS</button>
+        <button class="city-tab" data-city="BARCELONA">BARCELONA</button>
     </div>
-    <h1 id="city-title">Granollers</h1>
-    <h3>Què fer, què veure, què menjar</h3>
+    <div id="city-title">GRANOLLERS</div>
+    <div style="margin-bottom: 30px;">Què fer, què veure, què menjar</div>
     
-    <div>
-        <button class="category-btn" data-category="menjar">Menjar</button>
-        <button class="category-btn" data-category="supermercat">Supermercat</button>
-        <button class="category-btn" data-category="botigues">Botigues</button>
-        <button class="category-btn" data-category="turisme">Turisme</button>
-        <button class="category-btn" data-category="oci">Oci</button>
+    <div class="categories">
+        <button class="category-btn menjar" data-category="menjar">Menjar</button>
+        <button class="category-btn supermercat" data-category="supermercat">Supermercat</button>
+        <button class="category-btn botigues" data-category="botigues">Botigues</button>
+        <button class="category-btn turisme" data-category="turisme">Turisme</button>
+        <button class="category-btn oci" data-category="oci">Oci</button>
     </div>
     
     <div id="menjar" class="hidden">
-        <button class="subcategory-btn">Esmorzar</button>
-        <button class="subcategory-btn">Dinar</button>
-        <button class="subcategory-btn">Berenar</button>
-        <button class="subcategory-btn">Sopar</button>
-        <button class="subcategory-btn">Prendre algo</button>
+        <button class="subcategory-btn menjar">Esmorzar</button>
+        <button class="subcategory-btn menjar">Dinar</button>
+        <button class="subcategory-btn menjar">Berenar</button>
+        <button class="subcategory-btn menjar">Sopar</button>
+        <button class="subcategory-btn menjar">Prendre algo</button>
     </div>
     <div id="supermercat" class="hidden">
-        <button class="subcategory-btn">Carn</button>
-        <button class="subcategory-btn">Peix</button>
-        <button class="subcategory-btn">Compra Generica</button>
+        <button class="subcategory-btn supermercat">Carn</button>
+        <button class="subcategory-btn supermercat">Peix</button>
+        <button class="subcategory-btn supermercat">Compra Generica</button>
     </div>
     <div id="botigues" class="hidden">
-        <button class="subcategory-btn">Farmàcia</button>
-        <button class="subcategory-btn">Roba</button>
-        <button class="subcategory-btn">Tecnología</button>
-        <button class="subcategory-btn">Altres</button>
+        <button class="subcategory-btn botigues">Farmàcia</button>
+        <button class="subcategory-btn botigues">Roba</button>
+        <button class="subcategory-btn botigues">Tecnología</button>
+        <button class="subcategory-btn botigues">Altres</button>
+    </div>
+    <div id="turisme" class="hidden">
+        <button class="subcategory-btn turisme">Interior</button>
+        <button class="subcategory-btn turisme">Exterior</button>
     </div>
     <div id="oci" class="hidden">
-        <button class="subcategory-btn">Esport</button>
-        <button class="subcategory-btn">Cinema</button>
-        <button class="subcategory-btn">Tranquil</button>
-        <button class="subcategory-btn">Amics</button>
+        <button class="subcategory-btn oci">Esport</button>
+        <button class="subcategory-btn oci">Cinema</button>
+        <button class="subcategory-btn oci">Tranquil</button>
+        <button class="subcategory-btn oci">Amics</button>
     </div>
     
     <div id="pressupost" class="hidden">
@@ -92,63 +194,109 @@
     
     <div id="map"></div>
     <footer>
-        <p>&copy; 2024 Digue'm on. All rights reserved.</p>
+        <p>&copy; 2024 Digue'm on. Sabem que existeix Google Maps, aquests son espais basats en l'experiència.</p>
     </footer>
 
     <script>
-        var map = L.map('map').setView([41.607950, 2.287336], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-        
-        L.marker([41.607950, 2.287336]).addTo(map)
-            .bindPopup('A simple marker.')
-            .openPopup();
-
-        document.querySelectorAll('.city-tab').forEach(button => {
-            button.addEventListener('click', () => {
-                document.getElementById('city-title').textContent = button.dataset.city;
+        window.onload = function () {
+            var map = L.map('map', {
+                center: [41.607950, 2.287336],
+                zoom: 13,
+                maxZoom: 18,
+                minZoom: 14
             });
-        });
-
-        document.querySelectorAll('.category-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const categoryDiv = document.getElementById(button.dataset.category);
-                if (button.classList.contains('active')) {
-                    button.classList.remove('active');
-                    categoryDiv.classList.add('hidden');
-                } else {
-                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-                    document.querySelectorAll('#menjar, #supermercat, #botigues, #oci, #pressupost').forEach(div => div.classList.add('hidden'));
-                    button.classList.add('active');
-                    categoryDiv.classList.remove('hidden');
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+            
+            function updateMapCenter(city) {
+                var centerCoordinates;
+                if (city === 'GRANOLLERS') {
+                    centerCoordinates = [41.607950, 2.287336]; 
+                } else if (city === 'CASTELLDEFELS') {
+                    centerCoordinates = [41.279842, 1.979169]; 
+                } else if (city === 'BARCELONA') {
+                    centerCoordinates = [41.393805, 2.166297]; 
                 }
-            });
-        });
+                map.setView(centerCoordinates, 13); 
+            }
 
-        document.querySelectorAll('.subcategory-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('active')) {
-                    button.classList.remove('active');
-                    document.getElementById('pressupost').classList.add('hidden');
-                } else {
-                    document.querySelectorAll('.subcategory-btn').forEach(btn => btn.classList.remove('active'));
-                    document.getElementById('pressupost').classList.remove('hidden');
-                    button.classList.add('active');
-                }
-            });
-        });
+            updateMapCenter('GRANOLLERS');
 
-        document.querySelectorAll('.pressupost-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('active')) {
-                    button.classList.remove('active');
-                } else {
-                    document.querySelectorAll('.pressupost-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.city-tab').forEach(button => {
+                button.addEventListener('click', () => {
+                    const city = button.dataset.city;
+                    const categoryDivCities = document.getElementsByClassName('city-tab');
+                    for (let i = 0; i < categoryDivCities.length; i++) {
+                        categoryDivCities[i].classList.remove('active');
+                    }
+                    document.getElementById('city-title').textContent = city;
                     button.classList.add('active');
-                }
+                    
+                    updateMapCenter(city);
+                });
             });
-        });
+
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const categoryDiv = document.getElementById(button.dataset.category);
+                    if (button.classList.contains('active')) {
+                        button.classList.remove('active');
+                        categoryDiv.classList.add('hidden');
+                        document.getElementById('pressupost').classList.add('hidden');
+                        document.querySelectorAll('.subcategory-btn').forEach(btn => btn.classList.remove('active'));
+                        document.querySelectorAll('.pressupost-btn').forEach(btn => {
+                            btn.classList.remove('active'); 
+                            btn.classList.remove('menjar');
+                            btn.classList.remove('supermercat');
+                            btn.classList.remove('botigues');
+                            btn.classList.remove('turisme');
+                            btn.classList.remove('oci');
+                            btn.classList.add(button.dataset.category);
+                        });
+                    } else {
+                        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                        document.querySelectorAll('#menjar, #supermercat, #botigues, #turisme, #oci, #pressupost').forEach(div => {div.classList.add('hidden');});
+                        document.querySelectorAll('.subcategory-btn').forEach(btn => btn.classList.remove('active'));
+                        document.querySelectorAll('.pressupost-btn').forEach(btn => {
+                            btn.classList.remove('active'); 
+                            btn.classList.remove('menjar');
+                            btn.classList.remove('supermercat');
+                            btn.classList.remove('botigues');
+                            btn.classList.remove('turisme');
+                            btn.classList.remove('oci');
+                            btn.classList.add(button.dataset.category);
+                        });                        button.classList.add('active');
+                        categoryDiv.classList.remove('hidden');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.subcategory-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.classList.contains('active')) {
+                        button.classList.remove('active');
+                        document.getElementById('pressupost').classList.add('hidden');
+                    } else {
+                        document.querySelectorAll('.subcategory-btn').forEach(btn => btn.classList.remove('active'));
+                        document.querySelectorAll('.pressupost-btn').forEach(btn => {btn.classList.remove('active');});
+                        document.getElementById('pressupost').classList.remove('hidden');
+                        button.classList.add('active');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.pressupost-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.classList.contains('active')) {
+                        button.classList.remove('active');
+                    } else {
+                        document.querySelectorAll('.pressupost-btn').forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    }
+                });
+            });
+        };
     </script>
 </body>
 </html>
