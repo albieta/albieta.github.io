@@ -1,70 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digue'm on</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover AI - Your Guide to Artificial Intelligence</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #0a1930;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    section {
+      min-height: 100vh;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #3498db, #9b59b6, #1abc9c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #3498db;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+    
+    .hero {
+      text-align: center;
+      background: radial-gradient(circle at center, #1a365d, #0a1930);
+    }
+    
+    .hero p {
+      margin: 0 auto;
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+      }
+      40% {
+        transform: translateY(-20px) translateX(-50%);
+      }
+      60% {
+        transform: translateY(-10px) translateX(-50%);
+      }
+    }
+    
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #3498db;
+    }
+    
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #3498db;
+    }
+    
+    .personal-section, .work-section {
+      background: linear-gradient(135deg, #0a1930 0%, #1a365d 100%);
+    }
+    
+    .highlight {
+      color: #3498db;
+      font-weight: bold;
+    }
+    
+    .typing-text {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .typing-text p {
+      border-right: 3px solid #3498db;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 1.8rem;
+      margin: 0 auto;
+      animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #3498db }
+    }
+    
+    .particle-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background: linear-gradient(45deg, #3498db, #9b59b6);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .quote {
+      font-style: italic;
+      font-size: 1.4rem;
+      border-left: 4px solid #3498db;
+      padding-left: 20px;
+      margin: 40px 0;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: #071425;
+      min-height: auto;
+    }
+    
+    .future-section {
+      background: radial-gradient(circle at center, #1a365d, #0a1930);
+    }
+    
+    .ai-journey {
+      display: flex;
+      overflow-x: hidden;
+      margin: 50px 0;
+      position: relative;
+    }
+    
+    .journey-item {
+      min-width: 300px;
+      padding: 20px;
+      margin-right: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0;
+    }
+    
+    .journey-item h3 {
+      color: #3498db;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div class="city-tabs">
-        <button class="city-tab active" data-city="GRANOLLERS">GRANOLLERS</button>
-        <button class="city-tab" data-city="CASTELLDEFELS">CASTELLDEFELS</button>
-        <button class="city-tab" data-city="BARCELONA">BARCELONA</button>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="particle-container" id="particles"></div>
+    <div class="container">
+      <h1>Discover the World of AI</h1>
+      <div class="typing-text">
+        <p id="typing-text">Artificial Intelligence: Reshaping Our Future</p>
+      </div>
+      <p>Explore how AI is transforming our daily lives and opening new possibilities.</p>
+      <a href="#learn-more" class="cta-button">Begin Your Journey</a>
     </div>
-    <div id="city-title">GRANOLLERS</div>
-    <div style="margin-bottom: 30px;">Què fer, què veure, què menjar</div>
-    
-    <div class="categories">
-        <button class="category-btn menjar" data-category="menjar">Menjar</button>
-        <button class="category-btn supermercat" data-category="supermercat">Supermercat</button>
-        <button class="category-btn botigues" data-category="botigues">Botigues</button>
-        <button class="category-btn turisme" data-category="turisme">Turisme</button>
-        <button class="category-btn oci" data-category="oci">Oci</button>
+    <div class="scroll-indicator">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
-    
-    <div id="menjar" class="hidden">
-        <button class="subcategory-btn menjar" data-subcategory="esmorzar">Esmorzar</button>
-        <button class="subcategory-btn menjar" data-subcategory="dinar">Dinar</button>
-        <button class="subcategory-btn menjar" data-subcategory="berenar">Berenar</button>
-        <button class="subcategory-btn menjar" data-subcategory="sopar">Sopar</button>
-        <button class="subcategory-btn menjar" data-subcategory="prendrealgo">Prendre algo</button>
-    </div>
-    <div id="supermercat" class="hidden">
-        <button class="subcategory-btn supermercat" data-subcategory="carn">Carn</button>
-        <button class="subcategory-btn supermercat" data-subcategory="peix">Peix</button>
-        <button class="subcategory-btn supermercat" data-subcategory="compra">Compra Generica</button>
-    </div>
-    <div id="botigues" class="hidden">
-        <button class="subcategory-btn botigues" data-subcategory="farmacia">Farmàcia</button>
-        <button class="subcategory-btn botigues" data-subcategory="roba">Roba</button>
-        <button class="subcategory-btn botigues" data-subcategory="tecnologia">Tecnología</button>
-        <button class="subcategory-btn botigues" data-subcategory="altres">Altres</button>
-    </div>
-    <div id="turisme" class="hidden">
-        <button class="subcategory-btn turisme" data-subcategory="interior">Interior</button>
-        <button class="subcategory-btn turisme" data-subcategory="exterior">Exterior</button>
-    </div>
-    <div id="oci" class="hidden">
-        <button class="subcategory-btn oci" data-subcategory="esport">Esport</button>
-        <button class="subcategory-btn oci" data-subcategory="cinema">Cinema</button>
-        <button class="subcategory-btn oci" data-subcategory="tranquil">Tranquil</button>
-        <button class="subcategory-btn oci" data-subcategory="amics">Amics</button>
-    </div> 
+  </section>
 
-    <div id="pressupost" class="hidden">
-        <button class="pressupost-btn" data-pressupost="gratis">Gratis</button>
-        <button class="pressupost-btn" data-pressupost="baix">€</button>
-        <button class="pressupost-btn" data-pressupost="mitja">€€</button>
-        <button class="pressupost-btn" data-pressupost="alt">€€€</button>
+  <!-- What is AI Section -->
+  <section id="learn-more">
+    <div class="container">
+      <h2>What is <span class="highlight">Artificial Intelligence</span>?</h2>
+      <p>AI refers to computer systems designed to perform tasks that typically require human intelligence. These systems can learn from experience, adapt to new inputs, and perform human-like tasks.</p>
+      
+      <div class="card-container">
+        <div class="card" id="card1">
+          <div class="icon">🧠</div>
+          <h3>Machine Learning</h3>
+          <p>AI systems that improve automatically through experience, learning patterns from data without being explicitly programmed.</p>
+        </div>
+        <div class="card" id="card2">
+          <div class="icon">💬</div>
+          <h3>Natural Language Processing</h3>
+          <p>AI that understands, interprets, and generates human language, enabling meaningful interactions between humans and machines.</p>
+        </div>
+        <div class="card" id="card3">
+          <div class="icon">👁️</div>
+          <h3>Computer Vision</h3>
+          <p>Systems that can interpret and understand visual information from the world, mimicking human visual capabilities.</p>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- AI in Personal Life -->
+  <section class="personal-section">
+    <div class="container">
+      <h2>AI in Your <span class="highlight">Personal Life</span></h2>
+      <p>Artificial intelligence is already enhancing our everyday experiences in ways you might not even realize.</p>
+      
+      <div class="card-container">
+        <div class="card" id="personal1">
+          <div class="icon">🏠</div>
+          <h3>Smart Home Assistants</h3>
+          <p>Voice-activated AI helps manage your home, answer questions, play music, and control smart devices with simple commands.</p>
+        </div>
+        <div class="card" id="personal2">
+          <div class="icon">📱</div>
+          <h3>Smartphone Features</h3>
+          <p>From predictive text and photo organization to personalized recommendations, AI makes your phone smarter and more helpful.</p>
+        </div>
+        <div class="card" id="personal3">
+          <div class="icon">🎵</div>
+          <h3>Entertainment</h3>
+          <p>Streaming services use AI to recommend movies, music, and shows based on your preferences and viewing habits.</p>
+        </div>
+        <div class="card" id="personal4">
+          <div class="icon">🚗</div>
+          <h3>Transportation</h3>
+          <p>Navigation apps use AI to predict traffic patterns and suggest the fastest routes for your daily commute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI in Work Life -->
+  <section class="work-section">
+    <div class="container">
+      <h2>AI in the <span class="highlight">Workplace</span></h2>
+      <p>Across industries, AI is revolutionizing how we work, boosting productivity and opening new possibilities.</p>
+      
+      <div class="card-container">
+        <div class="card" id="work1">
+          <div class="icon">💼</div>
+          <h3>Business Analytics</h3>
+          <p>AI analyzes vast amounts of data to uncover insights, trends, and patterns that help businesses make better decisions.</p>
+        </div>
+        <div class="card" id="work2">
+          <div class="icon">🏥</div>
+          <h3>Healthcare</h3>
+          <p>From diagnostic assistance to personalized treatment plans, AI is helping healthcare providers deliver better patient care.</p>
+        </div>
+        <div class="card" id="work3">
+          <div class="icon">🛒</div>
+          <h3>Customer Service</h3>
+          <p>AI-powered chatbots and virtual assistants provide 24/7 support, answering questions and resolving issues instantly.</p>
+        </div>
+        <div class="card" id="work4">
+          <div class="icon">✏️</div>
+          <h3>Content Creation</h3>
+          <p>AI tools assist with writing, design, and editing, helping creators produce high-quality content more efficiently.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Journey -->
+  <section class="future-section">
+    <div class="container">
+      <h2>The <span class="highlight">Future</span> with AI</h2>
+      <p>As AI continues to evolve, it opens up exciting possibilities for solving complex problems and enhancing human capabilities.</p>
+      
+      <div class="ai-journey">
+        <div class="journey-item" id="journey1">
+          <h3>Today</h3>
+          <p>AI is already transforming industries and daily life through voice assistants, recommendation systems, and more.</p>
+        </div>
+        <div class="journey-item" id="journey2">
+          <h3>Near Future</h3>
+          <p>Expect more personalized experiences, advanced autonomous vehicles, and AI collaboration tools that enhance human creativity.</p>
+        </div>
+        <div class="journey-item" id="journey3">
+          <h3>Long Term</h3>
+          <p>AI may help solve global challenges in climate science, medicine, education, and other fields through unprecedented innovation.</p>
+        </div>
+      </div>
+      
+      <div class="quote">
+        "AI is not about replacing humans, but augmenting our capabilities and freeing us to focus on what makes us uniquely human: creativity, empathy, and complex problem-solving."
+      </div>
+      
+      <p>The potential of AI is limited only by our imagination. As these technologies become more accessible, they'll continue to transform how we live, work, and connect with the world around us.</p>
+      
+      <a href="#learn-more" class="cta-button">Explore AI Possibilities</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="footer">
+    <div class="container">
+      <p>© 2025 AI Demonstrator. Created to inspire and educate about artificial intelligence.</p>
+    </div>
+  </section>
+
+  <script>
+    // Initialize ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
     
-    <div id="map"></div>
-    <footer>
-        <p>&copy; 2024 Digue'm on. Sabem que existeix Google Maps, aquests son espais basats en l'experiència.</p>
-    </footer>
+    // Typing effect for multiple sentences
+    const sentences = [
+      "Artificial Intelligence: Reshaping Our Future",
+      "AI: Making the impossible possible",
+      "Enhance your life with intelligent technology",
+      "The next evolution in human-computer interaction"
+    ];
+    
+    let currentSentenceIndex = 0;
+    const typingTextElement = document.getElementById("typing-text");
+    
+    function typeNextSentence() {
+      const currentSentence = sentences[currentSentenceIndex];
+      typingTextElement.textContent = "";
+      typingTextElement.style.width = "0";
+      
+      // Type the sentence
+      let i = 0;
+      const typeInterval = setInterval(() => {
+        if (i < currentSentence.length) {
+          typingTextElement.textContent += currentSentence.charAt(i);
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          
+          // Wait before erasing
+          setTimeout(() => {
+            // Erase the sentence
+            const eraseInterval = setInterval(() => {
+              if (typingTextElement.textContent.length > 0) {
+                typingTextElement.textContent = typingTextElement.textContent.slice(0, -1);
+              } else {
+                clearInterval(eraseInterval);
+                currentSentenceIndex = (currentSentenceIndex + 1) % sentences.length;
+                setTimeout(typeNextSentence, 500);
+              }
+            }, 30);
+          }, 2000);
+        }
+      }, 70);
+    }
+    
+    // Start typing effect
+    setTimeout(typeNextSentence, 1000);
+    
+    // Animate cards
+    const animateCards = (selector, stagger) => {
+      gsap.to(selector, {
+        opacity: 1,
+        y: 0,
+        stagger: stagger,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: selector,
+          start: "top 80%",
+        }
+      });
+    };
+    
+    animateCards("#card1, #card2, #card3", 0.2);
+    animateCards("#personal1, #personal2, #personal3, #personal4", 0.15);
+    animateCards("#work1, #work2, #work3, #work4", 0.15);
+    
+    // Animate journey items
+    gsap.to(".journey-item", {
+      opacity: 1,
+      x: 0,
+      stagger: 0.3,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".ai-journey",
+        start: "top 80%",
+      }
+    });
+    
+    // Animate headings
+    gsap.utils.toArray("h2").forEach(heading => {
+      gsap.from(heading, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        scrollTrigger: {
+          trigger: heading,
+          start: "top 80%",
+        }
+      });
+    });
+    
+    // Initialize particles
+    window.onload = function() {
+      Particles.init({
+        selector: '#particles',
+        color: ['#3498db', '#9b59b6', '#1abc9c'],
+        connectParticles: true,
+        responsive: [
+          {
+            breakpoint: 768,
+            options: {
+              maxParticles: 80
+            }
+          },
+          {
+            breakpoint: 425,
+            options: {
+              maxParticles: 50
+            }
+          }
+        ]
+      });
+    };
+    
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
 </body>
 </html>
